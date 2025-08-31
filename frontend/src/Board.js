@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, className }) {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className={className} onClick={onSquareClick}>
       {value}
     </button>
   );
@@ -79,7 +79,12 @@ function Board({ gameMode }) { // Receive gameMode as a prop
       <div className="status">{message}</div>
       <div className="board">
         {squares.map((square, i) => (
-          <Square key={i} value={square} onSquareClick={() => handleClick(i)} />
+          <Square
+            key={i}
+            value={square}
+            onSquareClick={() => handleClick(i)}
+            className={`square ${square ? (square === 'X' ? 'x' : 'o') : ''}`}
+          />
         ))}
       </div>
       <button className="new-game-button" onClick={startNewGame}>New Game</button>
