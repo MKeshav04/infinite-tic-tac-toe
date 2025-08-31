@@ -1,5 +1,7 @@
 # first activate venv from backend then uvicorn api:app --reload
 
+
+from ai_solver import find_best_move
 from fastapi.middleware.cors import CORSMiddleware  
 from fastapi import FastAPI, HTTPException 
 from pydantic import BaseModel
@@ -73,3 +75,31 @@ def get_game_state(game_id: str):
     # 2. Return the current state of that game
     return {"board": game.board, "current_player": game.current_player}
 
+@app.get("/game/{game_id}/ai-move")
+def make_ai_move(game_id: str):
+    # 1. Find the correct game instance
+    if game_id not in games:
+        raise HTTPException(status_code=404, detail="Game not found")
+    
+    game = games[game_id]
+
+    # 2. Call our AI solver to get the best move
+    # The AI thinks based on the current board state
+    ai_move_coords = find_best_move(game.board)
+    row, col = ai_move_coords
+    
+    # 3. Convert the (row, col) back to a position (1-9)
+    position = row * 3 + col + 1
+
+    # 4. Use our own game engine to make the AI's move
+    # This is key! We let our trusted engine handle the state changes.
+    result = game.make_move(position)
+
+    # 5. Return the result, just like a human move
+    if result == True:
+        return {"message": "AI move successful", "board": game.board, "current_player": game.current_player}
+    elif result in ['X', 'O']:
+        return {"message": f"Player {result} (AI) wins!", "board": game.board}
+    else:
+        # This case handles potential draws or other engine responses
+        return {"message": "Game state changed", "board": game.board}

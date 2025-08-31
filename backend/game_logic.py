@@ -1,7 +1,3 @@
-# Process to save Snapshot / Commit
-# # git add . (Prepare the changes)
-# git commit -m "Your message" (Save the checkpoint)
-
 # Starting your workday
 # cd path/to/your/infinite-tic-tac-toe/backend
 # Navigates into your project folder.
