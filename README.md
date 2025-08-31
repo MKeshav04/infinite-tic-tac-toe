@@ -4,7 +4,7 @@ A full-stack, AI-powered web application featuring a unique 'cyclic' version of 
 
 ## Live Demo
 
-[Link]
+[(https://infinite-tic-tac-toe-six.vercel.app/)]
 
 ## Gameplay GIF
 

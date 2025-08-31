@@ -20,7 +20,7 @@ function Board({ gameMode }) { // Receive gameMode as a prop
   }, [gameMode]); // Re-start a new game if the mode changes
 
   const startNewGame = async () => {
-    const response = await fetch('http://127.0.0.1:8000/new-game', { method: 'POST' });
+    const response = await fetch('https://infinite-tic-tac-toe-oi51.onrender.com/new-game', { method: 'POST' });
     const data = await response.json();
     setGameId(data.game_id);
     setSquares(Array(9).fill(''));
@@ -34,7 +34,7 @@ function Board({ gameMode }) { // Receive gameMode as a prop
     }
 
     // --- Human's Move ---
-    const humanResponse = await fetch(`http://127.0.0.1:8000/game/${gameId}/move`, {
+    const humanResponse = await fetch(`https://infinite-tic-tac-toe-oi51.onrender.com/game/${gameId}/move`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ position: i + 1 }),
@@ -56,7 +56,7 @@ function Board({ gameMode }) { // Receive gameMode as a prop
       if (gameMode === 'ai' && humanData.current_player === 'O') {
         setMessage('AI is thinking...');
         // Call the AI endpoint
-        const aiResponse = await fetch(`http://127.0.0.1:8000/game/${gameId}/ai-move`);
+        const aiResponse = await fetch(`https://infinite-tic-tac-toe-oi51.onrender.com/game/${gameId}/ai-move`);
         const aiData = await aiResponse.json();
 
         if (aiResponse.ok) {

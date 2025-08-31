@@ -15,7 +15,10 @@ class Move(BaseModel):
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"], # Allows your React app to talk to the API
+    allow_origins=["http://localhost:3000", 
+                   "http://localhost:3001", 
+                   "http://localhost:3002", 
+                   "https://infinite-tic-tac-toe-six.vercel.app/"], # Allows your React app to talk to the API
     allow_credentials=True,
     allow_methods=["*"], # Allows all methods (GET, POST, etc)
     allow_headers=["*"],
